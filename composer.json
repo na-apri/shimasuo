@@ -1,0 +1,7 @@
+{
+  "name": "Shimasuo",
+  "description": "Shimasuo",
+  "autoload": {
+  	"psr-0": { "Shimasuo": "src/" }
+  }
+}
