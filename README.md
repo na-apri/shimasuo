@@ -1,6 +1,7 @@
 # Shimasuo
 
 Shimasuoは後でバッチ処理するようなQueueもどきなもの
+後回しにしたいのがPHPで書けるよ！！
 
 ## 必要そうなもの
 
@@ -38,6 +39,11 @@ composer.jsonというファイル名で以下を記述。
 
 ## Laravel 4で使ってみる
 
+とてもとても残念ですがLaravel 4のQueueドライバには対応してません。ですがprovidersとaliasesとartisanタスクを用意してみました。
+
+
+### providersとaliases
+
 app/config/app.php内のproviders、aliasesにそれぞれ登録を行う。
 
 providers
@@ -58,6 +64,22 @@ Facadeに対応と、SerializableClosure対応します。
 		},
 		[$p1, $p2]
 	);
+	
+### artisanでのタスク実行
+
+コマンドラインのartisanからrunを実行したりプロセスを終了したりできます。
+
+#### 実行
+
+	php artisan shimasuo start
+
+#### 終了
+
+	php artisan shimasuo stop
+
+startはプロセスを起動した後すぐ処理を返すので、動作をじぃーーーっと見つめるには、exec引数で呼び出してください。
+
+	php artisan shimasuo exec
 
 
 ## サンプル
