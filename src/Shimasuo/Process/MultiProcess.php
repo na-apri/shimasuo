@@ -43,7 +43,7 @@ class MultiProcess extends \Shimasuo\Process\Process {
 		});
 
 		for($i = 0; $i < $this->minChildProcessNum; $i++){
-			$this->fork($queue, $this->childProcessLifeSpan);
+			$this->runChildProcess($queue, $this->childProcessLifeSpan);
 		}
 		
 		while(true){
@@ -64,7 +64,7 @@ class MultiProcess extends \Shimasuo\Process\Process {
 				}
 
 				if($this->getChildProcessCount() < $toChildProcessNum){
-					$this->fork($queue, $this->childProcessLifeSpan);
+					$this->runChildProcess($queue, $this->childProcessLifeSpan);
 				}
 			}
 			elseif($queue->isEnd($msg)){
@@ -91,7 +91,7 @@ class MultiProcess extends \Shimasuo\Process\Process {
 		return $processCount;
 	}
 	
-	public function fork($queue, $childProcessLifeSpan){
+	public function runChildProcess($queue, $childProcessLifeSpan){
 		parent::fork(function() use($queue, $childProcessLifeSpan){
 			for($count = 0; $count < $childProcessLifeSpan; $count++){
 				if(!$queue->popFire()){
