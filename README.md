@@ -36,6 +36,30 @@ composer.jsonというファイル名で以下を記述。
 
 をすればインストールできます。
 
+## Laravel 4で使ってみる
+
+app/config/app.php内のproviders、aliasesにそれぞれ登録を行う。
+
+providers
+
+	'Shimasuo\ShimasuoL4\ShimasuoServiceProvider',
+
+aliases
+
+	'Shimasuo'            => 'Shimasuo\ShimasuoL4\Shimasuo',
+
+
+Facadeに対応と、SerializableClosure対応します。
+こんな雰囲気で呼び出せます。
+
+	Shimasuo::push(
+		function($p1, $p2) use ($useInstance){
+			// Hard work
+		},
+		[$p1, $p2]
+	);
+
+
 ## サンプル
 
 ### 設定
