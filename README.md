@@ -43,6 +43,16 @@ composer.jsonというファイル名で以下を記述。
 
 ですがprovidersとaliasesとartisanタスクを用意してみました。
 
+### まずは設定ファイルのpublish
+
+	php artisan config:publish na-apri/Shimasuo
+	
+このコマンドを実行すると、
+
+app/config/na-apri/Shimasuoに設定ファイルが出来ているので、
+
+そこで設定を変更できます。
+
 
 ### providersとaliases
 
