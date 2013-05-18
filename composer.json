@@ -1,5 +1,5 @@
 {
-  "name": "Shimasuo",
+  "name": "na-apri/Shimasuo",
   "description": "Shimasuo",
   "autoload": {
   	"psr-0": { "Shimasuo": "src/" }

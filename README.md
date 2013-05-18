@@ -26,7 +26,7 @@ composer.jsonというファイル名で以下を記述。
 		}
 	],
     "require": {
-		"shimasuo": "dev-master"
+		"na-apri/Shimasuo": "dev-master"
     }
 }
 ```
@@ -39,7 +39,9 @@ composer.jsonというファイル名で以下を記述。
 
 ## Laravel 4で使ってみる
 
-とてもとても残念ですがLaravel 4のQueueドライバには対応してません。ですがprovidersとaliasesとartisanタスクを用意してみました。
+とてもとても残念ですがLaravel 4のQueueドライバには対応してません。
+
+ですがprovidersとaliasesとartisanタスクを用意してみました。
 
 
 ### providersとaliases
@@ -77,7 +79,9 @@ Facadeに対応と、SerializableClosure対応します。
 
 	php artisan shimasuo stop
 
-startはプロセスを起動した後すぐ処理を返すので、動作をじぃーーーっと見つめるには、exec引数で呼び出してください。
+startはプロセスを起動した後すぐ処理を返すので、
+
+動作をじぃーーーっと見つめるには、exec引数で呼び出してください。
 
 	php artisan shimasuo exec
 
