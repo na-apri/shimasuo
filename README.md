@@ -9,7 +9,7 @@ Laravel4からはより便利に利用できます。
 
 ## 使い方
 
-HomeBrewなどで以下をインストールします。
+以下の動作に必要なパッケージをHomeBrewなどでインストールします。
 
 	brew tap homebrew/dupes
 	brew tap josegonzalez/homebrew-php
@@ -20,24 +20,24 @@ HomeBrewなどで以下をインストールします。
 	brew install php54-redis
 
 
-### composerを利用するインストール方法
+### composerを利用しインストールを行う
 
 1. composer.jsonへ以下を追加する。
 
-```JSON
-{
-	"repositories" : [
-		{
-			"packagist": false,
-			"type": "vcs",
-			"url": "git@github.com:na-apri/shimasuo.git"
-		}
-	],
-    "require": {
-		"na-apri/Shimasuo": "dev-master"
-    }
-}
-```
+	```JSON
+	{
+		"repositories" : [
+			{
+				"packagist": false,
+				"type": "vcs",
+				"url": "git@github.com:na-apri/shimasuo.git"
+			}
+		],
+   	 "require": {
+			"na-apri/Shimasuo": "dev-master"
+	    }
+	}
+	```
 
 2. コンソールからinstallを行う。
 
@@ -79,7 +79,7 @@ HomeBrewなどで以下をインストールします。
 
 ShimasuoはLaravel4のQueueドライバには対応してません。
 
-ですが独自のprovidersとaliasesとartisanタスクが用意されています。
+ですが独自のproviderとFacadeとartisanタスクが用意されています。
 
 
 ### 設定ファイルのpublish
@@ -107,7 +107,7 @@ app/config/app.php内のproviders、aliasesにそれぞれ登録を行います�
 		'Shimasuo'            => 'Shimasuo\ShimasuoL4\Shimasuo',
 
 
-Laravel4を利用する場合、FacadeとSerializableClosure対応します。
+Laravel4を利用する場合、aliasとSerializableClosure対応します。
 
 #### 利用方法
 
