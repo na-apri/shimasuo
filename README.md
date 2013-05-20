@@ -1,9 +1,15 @@
 # Shimasuo
 
-Shimasuoは後でバッチ処理するようなQueueもどきなもの
-後回しにしたいのがPHPで書けるよ！！
+Shimasuoはマルチプロセスで処理を行うPHP実装のJobQueueです。
 
-## 必要そうなもの
+Laravel4用のプロバイダが同梱されているので、
+
+Laravel4からはより便利に利用できます。
+
+
+## 使い方
+
+HomeBrewなどで以下をインストールします。
 
 	brew tap homebrew/dupes
 	brew tap josegonzalez/homebrew-php
@@ -13,8 +19,10 @@ Shimasuoは後でバッチ処理するようなQueueもどきなもの
 	brew install redis
 	brew install php54-redis
 
-インストールしたいプロジェクトのディレクトリに、
-composer.jsonというファイル名で以下を記述。
+
+### composerを利用するインストール方法
+
+1. composer.jsonへ以下を追加する。
 
 ```JSON
 {
@@ -31,72 +39,13 @@ composer.jsonというファイル名で以下を記述。
 }
 ```
 
-ディレクトリへ移動してコンソールで、
+2. コンソールからinstallを行う。
 
-	composer install
-
-をすればインストールできます。
-
-## Laravel 4で使ってみる
-
-とてもとても残念ですがLaravel 4のQueueドライバには対応してません。
-
-ですがprovidersとaliasesとartisanタスクを用意してみました。
-
-### まずは設定ファイルのpublish
-
-	php artisan config:publish na-apri/Shimasuo
-	
-このコマンドを実行すると、
-
-app/config/na-apri/Shimasuoに設定ファイルが出来ているので、
-
-そこで設定を変更できます。
+		composer install
 
 
-### providersとaliases
 
-app/config/app.php内のproviders、aliasesにそれぞれ登録を行う。
-
-providers
-
-	'Shimasuo\ShimasuoL4\ShimasuoServiceProvider',
-
-aliases
-
-	'Shimasuo'            => 'Shimasuo\ShimasuoL4\Shimasuo',
-
-
-Facadeに対応と、SerializableClosure対応します。
-こんな雰囲気で呼び出せます。
-
-	Shimasuo::push(
-		function($p1, $p2) use ($useInstance){
-			// Hard work
-		},
-		[$p1, $p2]
-	);
-	
-### artisanでのタスク実行
-
-コマンドラインのartisanからrunを実行したりプロセスを終了したりできます。
-
-#### 実行
-
-	php artisan shimasuo start
-
-#### 終了
-
-	php artisan shimasuo stop
-
-startはプロセスを起動した後すぐ処理を返すので、
-
-動作をじぃーーーっと見つめるには、exec引数で呼び出してください。
-
-	php artisan shimasuo exec
-
-
-## サンプル
+## Shmasuoの使い方
 
 ### 設定
 
@@ -115,14 +64,77 @@ startはプロセスを起動した後すぐ処理を返すので、
 		'key_prefix' => 'SAMPLE_',
 	]);
 
-### pushする
+### タスクの追加
 
-	// インスタンスメソッドを設定
 	$queue->push([
 		new Foo(), 'Method', ['p1', 'p2']
 	]);
 
-### 呼び出し
-	// オートローダーなどの名前解決を行ったphpをコンソールとかで以下を呼び出すようにする。
+### タスクの呼び出し
 	$queue->run();
+
+
+
+## Laravel4での利用
+
+ShimasuoはLaravel4のQueueドライバには対応してません。
+
+ですが独自のprovidersとaliasesとartisanタスクが用意されています。
+
+
+### 設定ファイルのpublish
+
+設定を変更するには以下のコマンドを実行し、
+
+app/config/na-apri/Shimasuoに配置された設定ファイルに編集を行ってください。
+
+
+		php artisan config:publish na-apri/Shimasuo
+	
+
+### providersとaliases
+
+app/config/app.php内のproviders、aliasesにそれぞれ登録を行います。
+
+#### 編集内容
+
+- providers
+
+		'Shimasuo\ShimasuoL4\ShimasuoServiceProvider',
+
+- aliases
+
+		'Shimasuo'            => 'Shimasuo\ShimasuoL4\Shimasuo',
+
+
+Laravel4を利用する場合、FacadeとSerializableClosure対応します。
+
+#### 利用方法
+
+		Shimasuo::push(
+			function($p1, $p2) use ($useInstance){
+				// Hard work
+			},
+			[$p1, $p2]
+		);
+	
+### artisanでのタスク実行
+
+コマンドラインのartisanからrunを実行したりプロセスを終了したりできます。
+
+#### 実行
+
+	php artisan shimasuo start
+
+
+標準出力を確認したい場合などは、以下のコマンドを利用してください。
+
+	php artisan shimasuo exec
+
+php artisan shimasuo startも内部的にはexecを呼び出しています。
+
+
+#### 終了
+
+	php artisan shimasuo stop
 
