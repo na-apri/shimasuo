@@ -86,6 +86,12 @@ class MultiProcessQueue{
 			$this->serialize($data)
 		);		
 	}
+	
+	public function topPriorityPush($data){
+		$this->taskQueue->lpush(
+			$this->serialize($data)
+		);
+	}
 		
 	public function serialize($data){
 		return serialize($data);
